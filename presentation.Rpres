@@ -1,0 +1,87 @@
+R presentation with interactive charts
+========================================================
+author: Johannes Burkhardt
+date: December 18th, 2013
+
+rCharts - Bar Plot
+========================================================
+ 
+<style>
+  .rChart {
+    display: block;
+    height: 400px;
+  }
+</style>
+ 
+```{r results = 'asis', echo=F}
+require(rCharts)
+hair_eye_male <- subset(as.data.frame(HairEyeColor), Sex == "Male")
+n1 <- nPlot(Freq ~ Hair, group = "Eye", data = hair_eye_male, type = "multiBarChart")
+n1$print('mychart1', include_assets = TRUE, cdn = TRUE)
+```
+
+rCharts - timeseries YoY
+========================================================
+ 
+<style>
+  .rChart {
+    display: block;
+    height: 400px;
+  }  
+</style>
+ 
+```{r results = 'asis', echo=F}
+require(rCharts)
+h1 <- Highcharts$new()
+h1$chart(type = "spline")
+h1$series(data = c(1, 3, 2, 4, 5, 4, 6, 2, 3, 5, 4, 7), dashStyle = "longdash", name='2011')
+h1$series(data = c(NA, 4, 1, 3, 4, 2, 9, 1, 2, 3, 4, 3), dashStyle = "shortdot", name='2012')
+h1$series(data = c(4, 6, 7, 8, 6, 2, 9, 4, 3, 6, 7, NA), dashStyle = "longdot", name='2013')
+h1$xAxis(categories = 1:12)
+h1$legend(symbolWidth = 80)
+h1$print('mychart2', include_assets = TRUE, cdn = TRUE)
+```
+
+pie chart
+========================================================
+ 
+<style>
+  .rChart {
+    display: block;
+    height: 400px;
+  }  
+</style>
+ 
+```{r results = 'asis', echo=F}
+require(rCharts)
+a <- Highcharts$new()
+a$title(text = "Fruits")
+a$data(x = c("Apples","Bananas","Oranges"), y = c(15, 20, 30), type = "pie", name = "Amount")
+a$print('mychart4', include_assets = TRUE, cdn = TRUE)
+```
+
+googleVis - Motion Chart
+========================================================
+```{r results = 'asis', echo=F}
+require(googleVis)
+M <- gvisMotionChart(Fruits, "Fruit", "Year", options=list(width=800, height=410))
+print(M, tag='chart')
+```
+
+Code References
+========================================================
+
+.Rpres Code in my github repository
+https://github.com/Porxy/RPresentation
+
+rCharts
+http://ramnathv.github.io/rCharts/
+
+rHighcharts
+http://glimmer.rstudio.com/reinholdsson/rHighcharts/
+
+googleVis
+https://code.google.com/p/google-motion-charts-with-r/
+
+Flash Settings for Motion Chart
+http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html
